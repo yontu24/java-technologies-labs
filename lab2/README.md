@@ -6,10 +6,12 @@ Create a Web application (starting from the previous lab) containing the followi
 * result.jsp a page describing the response that will be delivered to the client, for example an HTML table containing the words of the given size.
 
 # Homework
+Organize the application so it contains:
+* an object-oriented domain model;
+* a server-side component responsible with the business-logic of the application: writing the words to a file, reading data from a file, etc.
+* a server-side component responsible with controlling the web-flow.
 
 # Bonus
 
 # How to run?
 http://localhost:8080/PermutationGenerator/permutations
-or
-http://localhost:8080/PermutationGenerator/Application

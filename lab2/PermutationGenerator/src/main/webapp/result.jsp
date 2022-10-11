@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <html>
 <head>
 <title>Result</title>
@@ -6,17 +8,19 @@
 	<body>
 		<h1>Permutations</h1>
 		<%
-			int[] values = (int[]) request.getAttribute("array");
+			@SuppressWarnings("unchecked")
+			List<String> permutations = (List<String>) request.getAttribute("permutations");
 		%>
+		<h2>${permutations}</h2>
         <table>
-	    <%
-		    for (int i = 0; i < values.length; i++) {
+		<%
+			for (int i = 0; i < permutations.size(); i++) {
 		%>
 			<tr>
-                 <td><%=i%></td>
-                 <td><%=values[i]%></td>
-            </tr>
-    	<%
+				<td><%=i + 1%></td>
+				<td><%=permutations.get(i)%></td>
+			</tr>
+		<%
 			}
 		%>
 		</table>
