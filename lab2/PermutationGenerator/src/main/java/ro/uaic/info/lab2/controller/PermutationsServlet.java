@@ -20,7 +20,7 @@ import ro.uaic.info.lab2.model.PermutationGenerator;
 public class PermutationsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public PermutationsServlet() {
+	public PermutationsServlet() throws ServletException {
 		super();
 	}
 
@@ -29,6 +29,7 @@ public class PermutationsServlet extends HttpServlet {
 
 		String word = request.getParameter("word");
 		String size = request.getParameter("size");
+		String page;
 		System.out.println("call doGet(); word = " + word + "; size = " + size);
 
 		if (word != null && !word.isEmpty()) {
@@ -42,9 +43,10 @@ public class PermutationsServlet extends HttpServlet {
 
 			request.setAttribute("permutations", permutationsList);
 			response.setContentType("text/html");
-			getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
+			page = "/result.jsp";
 		} else {
-			getServletContext().getRequestDispatcher("/input.jsp").forward(request, response);
+			page = "/input.jsp";
 		}
+		getServletContext().getRequestDispatcher(page).forward(request, response);
 	}
 }
