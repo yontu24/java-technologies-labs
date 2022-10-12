@@ -10,6 +10,8 @@ Organize the application so it contains:
 * an object-oriented domain model;
 * a server-side component responsible with the business-logic of the application: writing the words to a file, reading data from a file, etc.
 * a server-side component responsible with controlling the web-flow.
+* A web filter that will log all requests received by input.jsp.
+* A web filter that will decorate the response by adding a specific prelude (at the beginning) and a specific coda (at the end) to the generated HTML page.
 
 # Bonus
 

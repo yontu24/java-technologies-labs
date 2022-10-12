@@ -116,7 +116,7 @@ public final class PermutationGenerator {
 					wordsMap.add(word);
 				}
 			}
-			System.out.println("Successfully read " + wordsMap.size() + " words from " + DICTIONARY_NAME);
+			System.out.println("Successfully read " + wordsMap.size() + " words from " + DICTIONARY_PATH);
 		}
 
 		/**

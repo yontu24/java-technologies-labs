@@ -11,7 +11,6 @@
 			@SuppressWarnings("unchecked")
 			List<String> permutations = (List<String>) request.getAttribute("permutations");
 		%>
-		<h2>${permutations}</h2>
         <table>
 		<%
 			for (int i = 0; i < permutations.size(); i++) {

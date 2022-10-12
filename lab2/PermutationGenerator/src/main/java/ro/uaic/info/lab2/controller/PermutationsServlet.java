@@ -34,7 +34,7 @@ public class PermutationsServlet extends HttpServlet {
 
 		if (word != null && !word.isEmpty()) {
 			word = word.trim();
-			size = size.trim();
+			size = size == null ? "0" : size.trim();
 
 			CharSequence charSequence = word.subSequence(0, word.length());
 			List<Character> chars = charSequence.chars().mapToObj(c -> (char) c).sorted().collect(Collectors.toList());
