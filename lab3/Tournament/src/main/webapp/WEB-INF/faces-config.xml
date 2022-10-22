@@ -1,0 +1,22 @@
+<faces-config version="3.0">
+	<application>
+		<message-bundle>
+			Messages
+		</message-bundle>
+		<resource-bundle>
+			<base-name>Messages</base-name>
+			<var>msg</var>
+		</resource-bundle>
+		<locale-config>
+			<default-locale>en</default-locale>
+			<supported-locale>ro</supported-locale>
+		</locale-config>
+	</application>
+	<navigation-rule>
+		<from-view-id>/inputName.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>hello</from-outcome>
+			<to-view-id>/sayHello.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+</faces-config>

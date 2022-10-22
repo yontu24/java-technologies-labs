@@ -1,0 +1,15 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Hello</title>
+</h:head>
+<h:body>
+	<h:form>
+		<h:outputLabel for="userName" value="Your name:" />
+		<h:inputText id="userName" value="#{person.name}" required="true" />
+		<h:commandButton id="submit" value="Submit" action="sayHello.xhtml" />
+		<h:message id="errors" style="color: red" showSummary="true"
+			showDetail="false" for="userName" />
+	</h:form>
+</h:body>
+</html>
