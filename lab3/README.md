@@ -15,7 +15,8 @@ Create the following:
 * A web page for viewing the teams in the database.
 
 # Homework
-
+* Create the support for managing the teams, using a datatable.
+* Define a page for creating a new team or editing an existing one, using a modal dialog. Use appropriate components for specifying the date and the city.
 
 # Bonus
 

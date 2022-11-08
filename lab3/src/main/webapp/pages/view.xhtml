@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Current teams</title>
+</h:head>
+<h:body>
+	<h:outputLabel>My teamsS</h:outputLabel>
+	<h:form>
+		<div class="card">
+			<p:dataTable var="team" value="#{teamRepository.teams}">
+				<p:column headerText="Name">
+					<h:outputText value="#{team.name}" />
+				</p:column>
+
+				<p:column headerText="Founding date">
+					<h:outputText value="#{team.foundingDate}" />
+				</p:column>
+
+				<p:column headerText="City">
+					<h:outputText value="#{team.city}" />
+				</p:column>
+			</p:dataTable>
+		</div>
+	</h:form>
+</h:body>
+</html>

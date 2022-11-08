@@ -21,11 +21,11 @@ public class ConnectionService {
         }
     }
 
-    public static Connection getInstance() {
+    public static ConnectionService getInstance() {
         if (instance == null)
             instance = new ConnectionService();
 
-        return connection;
+        return instance;
     }
 
     public static void close() {
@@ -36,5 +36,9 @@ public class ConnectionService {
                 e.printStackTrace();
             }
         }
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 }

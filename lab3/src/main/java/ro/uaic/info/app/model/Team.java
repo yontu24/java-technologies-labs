@@ -10,9 +10,15 @@ public class Team implements Serializable {
     private LocalDate foundingDate;
     private String city;
 
-    public Team(String name, LocalDate foundingDate, String city) {
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public void setFoundingDate(LocalDate foundingDate) {
         this.foundingDate = foundingDate;
+    }
+
+    public void setCity(String city) {
         this.city = city;
     }
 
