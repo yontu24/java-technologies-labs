@@ -18,8 +18,8 @@ import ro.uaic.info.app.model.Team;
 @SessionScoped
 public class TeamRepository implements Serializable {
     private List<Team> teams;
-    private Team team;
-    private Team team2;
+    private Team teamToCreate;
+    private Team teamToUpdate;
     private boolean success = true;
 
     @Inject
@@ -29,8 +29,12 @@ public class TeamRepository implements Serializable {
     public void init() {
         try {
             teams = teamController.getTeams();
-            team = new Team();
-            team2 = new Team();
+            teamToCreate = new Team();
+            try {
+                teamToUpdate = teams.get(0);
+            } catch (IndexOutOfBoundsException e) {
+                teamToUpdate = new Team();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,24 +48,24 @@ public class TeamRepository implements Serializable {
         return teams;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setTeamToCreate(Team teamToCreate) {
+        this.teamToCreate = teamToCreate;
     }
 
-    public Team getTeam() {
-        return team;
+    public Team getTeamToCreate() {
+        return teamToCreate;
     }
 
     public void getCreateTeam() {
-        success = teamController.setCreateTeam(team);
+        success = teamController.setCreateTeam(teamToCreate);
     }
 
-    public Team getTeam2() {
-        return team2;
+    public Team getTeamToUpdate() {
+        return teamToUpdate;
     }
 
-    public void setTeam2(Team team2) {
-        this.team2 = team2;
+    public void setTeamToUpdate(Team teamToUpdate) {
+        this.teamToUpdate = teamToUpdate;
     }
 
     public void getDisplayMessage() {
@@ -71,12 +75,6 @@ public class TeamRepository implements Serializable {
         else
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Not executed", "Team has not been created."));
-    }
-
-    public void onTeamSelected() {
-        if (team2.getName() != null && !team2.getName().equals("")) {
-            System.out.println(team2);
-        }
     }
 
     public Team getTeam(String name) {

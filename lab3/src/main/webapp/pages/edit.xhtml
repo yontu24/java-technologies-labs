@@ -2,72 +2,73 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
-<f:metadata>
-    <f:event type="preRenderView" listener="#{teamRepository.init() }"/>
-</f:metadata>
+
 <h:head>
     <title>Edit a team</title>
 </h:head>
 <h:body>
     <div class="card">
-        <p:commandButton value="Update a team" type="button" icon="pi pi-external-link" onclick="PF('dlg3').show()"/>
+        <p:panelGrid columns="1">
+            <p:commandButton value="Create a new team" type="button" icon="pi pi-external-link" onclick="PF('dlg2').show()"/>
+            <p:commandButton value="Update a team" type="button" icon="pi pi-external-link" onclick="PF('dlg3').show()"/>
+            <h:form>
+                <p:commandButton value="Back To View Page" action="#{navigationController.viewPage}" styleClass="ui-button-outlined"/>
+            </h:form>
+        </p:panelGrid>
     </div>
 
     <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" widgetVar="msgsWidget"/>
     <p:growl id="msgs2" showDetail="true" skipDetailIfEqualsSummary="true" widgetVar="msgsWidget"/>
 
-    <!--    Update a team-->
-    <p:dialog id="editDialog" header="Update a team" widgetVar="dlg3" minHeight="40" width="350" showEffect="fade"
-              modal="true">
-<!--        <h:form>-->
-<!--            <p:outputLabel for="team" value="Team: "/>-->
-<!--            <p:selectOneMenu id="team" value="#{teamRepository.team2}" style="width:150px" converter="teamConverter">-->
-<!--                <p:ajax listener="#{teamRepository.OnTeamSelected}" process="@this" render="teamName teamFoundingDate teamCity"/>-->
-<!--                <f:selectItem itemLabel="Select Team" itemValue="" noSelectionOption="true"/>-->
-<!--                <f:selectItems value="#{teamRepository.teams}"/>-->
-<!--            </p:selectOneMenu>-->
-
-<!--            <p:outputPanel id="teamInfo" styleClass="mb-2">-->
-<!--                <h3>Name</h3>-->
-<!--                <p:outputLabel id="teamName" value="#{teamRepository.team2.name}"/>-->
-<!--                <h3>Founding date</h3>-->
-<!--                <p:outputLabel id="teamFoundingDate" value="#{teamRepository.team2.foundingDate}"/>-->
-<!--                <h3>City</h3>-->
-<!--                <p:outputLabel id="teamCity" value="#{teamRepository.team2.city}"/>-->
-<!--            </p:outputPanel>-->
-
-<!--            <p:commandButton value="Update team" icon="pi pi-check" disableOnAjax="false"-->
-<!--                             action="#{teamRepository.getCreateTeam}" oncomplete="PF('dlg3').hide()"/>-->
-<!--        </h:form>-->
-
-
-
-
-
-<!--        <h:form>-->
-<!--            <p:outputLabel for="team" value="Team: "/>-->
-<!--            <p:selectOneMenu id="team" value="#{teamRepository.team2}" style="width:150px" converter="teamConverter">-->
-<!--&lt;!&ndash;                <p:ajax listener="#{teamRepository.onTeamSelected()}"/>&ndash;&gt;-->
-<!--                <f:selectItems value="#{teamRepository.teams}"-->
-<!--                        var="team"-->
-<!--                        itemValue="#{team}"-->
-<!--                        itemLabel="#{team.name}"-->
-<!--                />-->
-<!--            </p:selectOneMenu>-->
-
-<!--            <h3>Name</h3>-->
-<!--            <p:outputLabel id="teamName" value="#{teamRepository.team2.name}"/>-->
-<!--            <h3>Founding date</h3>-->
-<!--            <p:outputLabel id="teamFoundingDate" value="#{teamRepository.team2.foundingDate}"/>-->
-<!--            <h3>City</h3>-->
-<!--            <p:outputLabel id="teamCity" value="#{teamRepository.team2.city}"/>-->
-
-<!--            <p:commandButton value="Update team" icon="pi pi-check" disableOnAjax="false"-->
-<!--                             action="#{teamRepository.getCreateTeam}" oncomplete="PF('dlg3').hide()"/>-->
-<!--        </h:form>-->
+    <!--    Create a new team -->
+    <p:dialog header="Create a new team" widgetVar="dlg2" minHeight="40" width="350" showEffect="fade" modal="true">
+        <h:form>
+            <h3>Name</h3>
+            <p:inputText value="#{teamRepository.teamToCreate.name}" required="true" requiredMessage="Please enter a team name"/>
+            <h3>Founding date</h3>
+            <p:datePicker value="#{teamRepository.teamToCreate.foundingDate}" pattern="yyyy-MM-dd" showButtonBar="true" mask="true"/>
+            <h3>City</h3>
+            <p:inputText value="#{teamRepository.teamToCreate.city}" required="true" requiredMessage="Please enter a city name"/>
+            <p:commandButton value="Create" icon="pi pi-check" disableOnAjax="false"
+                             action="#{teamRepository.getCreateTeam}" onclick="PF('dlg2').hide()" oncomplete="rc()"/>
+        </h:form>
+        <p:remoteCommand name="rc" update="msgs" action="#{teamRepository.getDisplayMessage}"/>
     </p:dialog>
 
 
 
+
+    <!--    Update a team-->
+    <p:dialog id="editDialog" header="Update a team" widgetVar="dlg3" minHeight="40" width="400" showEffect="fade"
+              modal="true">
+        <h:form>
+            <p:panelGrid columns="2">
+                <h3>Team:</h3>
+                <p:selectOneMenu id="team" value="#{teamRepository.teamToUpdate}" style="width:150px" converter="teamConverter">
+                    <p:ajax update="teamName teamFoundingDate teamCity"/>
+<!--                    <f:selectItem noSelectionOption="true" itemLabel="Select a team"/>-->
+                    <f:selectItems value="#{teamRepository.teams}"
+                                   var="team"
+                                   itemValue="#{team}"
+                                   itemLabel="#{team.name}"
+                    />
+                </p:selectOneMenu>
+
+                <h3>Name</h3>
+                <p:inputText id="teamName" value="#{teamRepository.teamToUpdate.name}" required="true" requiredMessage="Please enter a team name"/>
+
+                <h3>Founding date</h3>
+                <p:datePicker id="teamFoundingDate" immediate="true" value="#{teamRepository.teamToUpdate.foundingDate}" pattern="yyyy-MM-dd" showButtonBar="true" mask="true"/>
+
+                <h3>City</h3>
+                <p:inputText id="teamCity" value="#{teamRepository.teamToUpdate.city}" required="true" requiredMessage="Please enter a city name"/>
+            </p:panelGrid>
+            <br/>
+            <p:commandButton value="Update team" icon="pi pi-check" disableOnAjax="false"
+                             action="#{teamRepository.getCreateTeam}" onclick="rc()" oncomplete="PF('dlg3').hide()"/>
+
+            <p:remoteCommand name="rc" update="msgs2" action="#{teamRepository.getDisplayMessage}"/>
+        </h:form>
+    </p:dialog>
 </h:body>
 </html>

@@ -1,6 +1,5 @@
 package ro.uaic.info.app.converters;
 
-import ro.uaic.info.app.controller.TeamController;
 import ro.uaic.info.app.dao.TeamRepository;
 import ro.uaic.info.app.model.Team;
 
@@ -9,7 +8,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import java.sql.SQLException;
 
 @FacesConverter("teamConverter")
 //@Named
@@ -21,8 +19,8 @@ public class TeamConverter implements Converter {
                 .getExpressionFactory()
                 .createValueExpression(facesContext.getELContext(), "#{teamRepository}", TeamRepository.class);
 
-        TeamRepository team = (TeamRepository) valueExpression.getValue(facesContext.getELContext());
-        return team.getTeam(s);
+        TeamRepository teamRepository = (TeamRepository) valueExpression.getValue(facesContext.getELContext());
+        return teamRepository.getTeam(s);
     }
 
     @Override

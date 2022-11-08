@@ -5,7 +5,8 @@
 	<title>Current teams</title>
 </h:head>
 <h:body>
-	<h:outputLabel>My teamsS</h:outputLabel>
+	<h:outputLabel>Current teams</h:outputLabel>
+	<br/>
 	<h:form>
 		<div class="card">
 			<p:dataTable var="team" value="#{teamRepository.teams}">
@@ -22,6 +23,8 @@
 				</p:column>
 			</p:dataTable>
 		</div>
+		<br/>
+		<p:commandButton value="Manage teams" action="#{navigationController.editPage}" icon="pi pi-external-link" styleClass="ui-button-outlined"/>
 	</h:form>
 </h:body>
 </html>
