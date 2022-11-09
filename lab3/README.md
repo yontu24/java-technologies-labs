@@ -9,15 +9,26 @@ The main specifications of the application are:
 # Compulsory
 Create the following:
 
-* A relational database in order to store and retrieve data. (PostgreSQL is recommended).
-* You should have at least the tables: teams and cities.
-* A JSF project using Maven
-* A web page for viewing the teams in the database.
+- `Lab3`
+  - 
+    * A relational database in order to store and retrieve data. (PostgreSQL is recommended).
+    * You should have at least the tables: teams and cities.
+    * A JSF project using Maven
+    * A web page for viewing the teams in the database.
+
+- `Lab4`
+  - 
+  * Configure a connection pool and a JDBC resource using an administrative tool (such as GlassFish/Payara Console or asadmin).
+  * Create DatSource objects using either JNDI directly or resource injection.
 
 # Homework
-* Create the support for managing the teams, using a datatable.
-* Define a page for creating a new team or editing an existing one, using a modal dialog. Use appropriate components for specifying the date and the city.
-
+- `Lab3`
+  - 
+  * Create the support for managing the teams, using a datatable.
+  * Define a page for creating a new team or editing an existing one, using a modal dialog. Use appropriate components for specifying the date and the city.
+- `Lab4`
+  - 
+  - 
 # Bonus
 
 
