@@ -34,3 +34,7 @@ Create the following:
 
 # How to run?
 
+- index page:
+http://localhost:8080/Tournament/
+- Admin console:
+http://localhost:4848/
