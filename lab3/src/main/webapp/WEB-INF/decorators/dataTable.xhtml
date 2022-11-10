@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en">
+<h:head>
+</h:head>
+<h:body>
+    <p:dataTable
+            id="dataTable"
+            var="team"
+            value="#{teamRepository.teams}"
+            selectionMode="single"
+            scrollable="true"
+            scrollHeight="500px"
+            expandableRowGroups="false"
+            sortBy="#{team.name}"
+            rowKey="#{team.name}"
+            style="margin:auto">
+        <p:ajax event="rowDblselect"
+                listener="#{teamRepository.onRowDblClckSelect}" />
+        <p:ajax event="rowSelect"
+                listener="#{teamRepository.onRowSelect}"/>
+        <!--                update="addBtn editBtn removeBtn emailBtn"/>-->
+        <p:column headerText="Name">
+            <h:outputText value="#{team.name}" />
+        </p:column>
+
+        <p:column headerText="Founding date">
+            <h:outputText value="#{team.foundingDate}" />
+        </p:column>
+
+        <p:column headerText="City">
+            <h:outputText value="#{team.city}" />
+        </p:column>
+    </p:dataTable>
+
+    <br/>
+    <p:commandButton value="Manage teams" action="#{navigationController.editPage}" icon="pi pi-external-link" styleClass="ui-button-outlined"/>
+</h:body>
+</html>

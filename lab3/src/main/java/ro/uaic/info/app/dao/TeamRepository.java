@@ -80,4 +80,12 @@ public class TeamRepository implements Serializable {
     public Team getTeam(String name) {
         return teams.stream().filter(team -> team.getName().equals(name)).findFirst().orElse(null);
     }
+
+    public void onRowDblClckSelect() {
+        System.out.println("double click");
+    }
+
+    public void onRowSelect() {
+        System.out.println("single click");
+    }
 }

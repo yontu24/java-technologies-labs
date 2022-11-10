@@ -28,7 +28,10 @@ Create the following:
   * Define a page for creating a new team or editing an existing one, using a modal dialog. Use appropriate components for specifying the date and the city.
 - `Lab4`
   - 
-  - 
+  - Create the pages using templates:
+    * page.xhtml: describing the general aspect of the application pages: header, content, footer. The header should display the title and might include a menu bar.
+      The footer will display a copyright notice and the current version of the aplication. The header, footer and the menu bar should all be in separate .xhtml files.
+    * dataView.xhtml: a generic page for displaying data as a list, dataTable, etc.
 # Bonus
 
 
