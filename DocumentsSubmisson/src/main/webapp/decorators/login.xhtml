@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+    <p:growl id="growl" sticky="true" showDetail="true" life="3000"/>
+    <h:form id="loginForm">
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="username" value="Username:"/>
+            <p:inputText id="username" value="#{userLoginView.user.name}" required="true" label="username"/>
+
+            <h:outputLabel for="password" value="Password:"/>
+            <p:password id="password" value="#{userLoginView.user.password}" required="true" label="password"/>
+
+            <p:selectBooleanCheckbox value="#{userLoginView.registering}" itemLabel="Register">
+                <p:ajax event="change" update="actionButton, roles, radioGrid" listener="#{userLoginView.checkAuth}"/>
+            </p:selectBooleanCheckbox>
+            <br/>
+            <h:panelGrid id="roles">
+                <p:outputLabel rendered="#{userLoginView.registering}" value="Select a role"/>
+                <p:selectOneRadio id="radioGrid" rendered="#{userLoginView.registering}" value="#{userLoginView.user.role}"
+                                  layout="grid" columns="1" styleClass="grid-radio">
+                    <f:selectItem itemLabel="Admin" itemValue="ADMIN"/>
+                    <f:selectItem itemLabel="Author" itemValue="AUTHOR"/>
+                    <f:selectItem itemLabel="Reviewer" itemValue="REVIEWER"/>
+                    <!--            <p:ajax listener="#{userLoginView.setUserRole}"/>-->
+                </p:selectOneRadio>
+            </h:panelGrid>
+
+            <f:facet name="footer">
+                <p:commandButton id="actionButton" value="#{userLoginView.buttonName}" update="growl, loginForm"
+                                 action="#{userLoginView.login}" ajax='false' widgetVar="50"/>
+            </f:facet>
+        </h:panelGrid>
+    </h:form>
+</h:body>
+</html>

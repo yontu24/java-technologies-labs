@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+   <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+   <h:form id="registerForm">
+      <h:panelGrid columns="2" cellpadding="5">
+         <h:outputLabel for="username" value="Username:" />
+         <p:inputText id="username" value="#{userRegisterView.user.name}" required="true" label="username" />
+
+         <h:outputLabel for="password" value="Password:" />
+         <p:password id="password" value="#{userRegisterView.user.password}" required="true" label="password" />
+
+         <p:selectOneRadio id="role" value="#{userRegisterView.user.role}" layout="grid" columns="1" styleClass="grid-radio">
+            <f:selectItem itemLabel="Admin" itemValue="ADMIN"/>
+            <f:selectItem itemLabel="Author" itemValue="AUTHOR"/>
+            <f:selectItem itemLabel="Reviewer" itemValue="REVIEWER"/>
+         </p:selectOneRadio>
+
+         <f:facet name="footer">
+            <p:commandButton value="Register" update="growl, registerForm" action="#{userLoginView.login}" ajax='false' />
+         </f:facet>
+      </h:panelGrid>
+   </h:form>
+</h:body>
+</html>
