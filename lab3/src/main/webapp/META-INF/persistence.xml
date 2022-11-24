@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+  <persistence-unit name="TournamentPersistenceUnit" transaction-type="JTA">
+    <jta-data-source>MyJdbcResource</jta-data-source>
+<!--    <class>ro.uaic.info.app.entity.CitiesEntity</class>-->
+<!--    <class>ro.uaic.info.app.entity.TeamsEntity</class>-->
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="java.naming.factory.initial" value="org.glassfish.resources.custom.factory.URLFactory"/>
+      <!--              <property name="jndi.java.naming.factory.url" value="org.glassfish.resources.custom.factory.URLFactory"/>-->
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
+    </properties>
+  </persistence-unit>
+
+<!--  <persistence-unit name="ExamplePU_Local"-->
+<!--                    transaction-type="RESOURCE_LOCAL">-->
+
+<!--    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
+<!--    <exclude-unlisted-classes>false</exclude-unlisted-classes>-->
+<!--    <properties>-->
+<!--      <property name="" value=""/>-->
+<!--      <property name="javax.persistence.jdbc.driver"-->
+<!--                value="org.postgresql.Driver"/>-->
+<!--      <property name="javax.persistence.jdbc.url"-->
+<!--                value="jdbc:postgresql://localhost:5432/postgres"/>-->
+<!--      <property name="javax.persistence.jdbc.user" value="postgres"/>-->
+<!--      <property name="javax.persistence.jdbc.password"-->
+<!--                value="postgres"/>-->
+<!--      <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/postgres"/>-->
+<!--      <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>-->
+<!--    </properties>-->
+<!--  </persistence-unit>-->
+</persistence>

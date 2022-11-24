@@ -21,6 +21,15 @@ Create the following:
   * Configure a connection pool and a JDBC resource using an administrative tool (such as GlassFish/Payara Console or asadmin).
   * Create DatSource objects using either JNDI directly or resource injection.
 
+- `Lab5`
+  - 
+  * Define the persistence unit using a data source configured as a JDBC Resource.
+  * Define at least one entity class and perform a simple test in order to verify the communication with the database.
+
+- `Lab6`
+  - 
+  * TODO
+
 # Homework
 - `Lab3`
   - 
@@ -32,11 +41,19 @@ Create the following:
     * page.xhtml: describing the general aspect of the application pages: header, content, footer. The header should display the title and might include a menu bar.
       The footer will display a copyright notice and the current version of the aplication. The header, footer and the menu bar should all be in separate .xhtml files.
     * dataView.xhtml: a generic page for displaying data as a list, dataTable, etc.
+- `Lab5`
+  - 
+  * TODO
+- `Lab6`
+  - 
+  * TODO
+
 # Bonus
 
 
 # How to run?
 
+### Tournamet
 - index page:
 http://localhost:8080/Tournament/
 - Admin console:
