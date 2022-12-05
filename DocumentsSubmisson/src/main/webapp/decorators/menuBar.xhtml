@@ -11,11 +11,12 @@
 <h:body>
     <div class="card">
         <h:form>
-            <p:growl id="messages"/>
             <p:menubar>
-                <p:menuitem value="Login" icon="pi pi-fw pi-login" action="#{navigationController.loginPage}"/>
+                <p:menuitem value="Login" icon="pi pi-fw pi-user" action="#{navigationController.loginPage}"/>
                 <p:divider layout="vertical"/>
-                <p:menuitem value="Register" icon="pi pi-fw pi-cog" action="#{navigationController.registerPage}"/>
+                <p:menuitem value="Logut" icon="pi pi-fw pi-power-off" action="#{navigationController.logoutPage}"/>
+                <p:divider layout="vertical"/>
+                <p:menuitem value="Register" icon="pi pi-fw pi-sign-out" ajax="false" action="#{navigationController.registerPage}"/>
             </p:menubar>
         </h:form>
     </div>

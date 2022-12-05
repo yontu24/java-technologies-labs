@@ -35,7 +35,7 @@
         <from-view-id>/pages/login.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{navigationController.registerPage}</from-action>
-            <to-view-id>/index.xhtml</to-view-id>
+            <to-view-id>/pages/register.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

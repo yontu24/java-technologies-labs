@@ -8,7 +8,7 @@
 <h:head>
 </h:head>
 <h:body>
-    <p:growl id="growl" sticky="true" showDetail="true" life="3000"/>
+    <p:growl id="growl" sticky="true" showDetail="true"/>
     <h:form id="loginForm">
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel for="username" value="Username:"/>
@@ -17,23 +17,10 @@
             <h:outputLabel for="password" value="Password:"/>
             <p:password id="password" value="#{userLoginView.user.password}" required="true" label="password"/>
 
-            <p:selectBooleanCheckbox value="#{userLoginView.registering}" itemLabel="Register">
-                <p:ajax event="change" update="actionButton, roles, radioGrid" listener="#{userLoginView.checkAuth}"/>
-            </p:selectBooleanCheckbox>
-            <br/>
-            <h:panelGrid id="roles">
-                <p:outputLabel rendered="#{userLoginView.registering}" value="Select a role"/>
-                <p:selectOneRadio id="radioGrid" rendered="#{userLoginView.registering}" value="#{userLoginView.user.role}"
-                                  layout="grid" columns="1" styleClass="grid-radio">
-                    <f:selectItem itemLabel="Admin" itemValue="ADMIN"/>
-                    <f:selectItem itemLabel="Author" itemValue="AUTHOR"/>
-                    <f:selectItem itemLabel="Reviewer" itemValue="REVIEWER"/>
-                    <!--            <p:ajax listener="#{userLoginView.setUserRole}"/>-->
-                </p:selectOneRadio>
-            </h:panelGrid>
+            <h:outputLabel rendered="#{userLoginView.isUserLoggedIn() == true}">You are already logged in.</h:outputLabel>
 
             <f:facet name="footer">
-                <p:commandButton id="actionButton" value="#{userLoginView.buttonName}" update="growl, loginForm"
+                <p:commandButton id="actionButton" value="Login" update="growl, loginForm"
                                  action="#{userLoginView.login}" ajax='false' widgetVar="50"/>
             </f:facet>
         </h:panelGrid>

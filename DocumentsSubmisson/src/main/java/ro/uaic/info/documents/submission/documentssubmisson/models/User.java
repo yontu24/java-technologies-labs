@@ -2,15 +2,11 @@ package ro.uaic.info.documents.submission.documentssubmisson.models;
 
 import java.io.Serializable;
 
-public abstract class AbstractUser implements Serializable {
-    protected UserRole role;
+public class User implements Serializable {
+    private UserRole role;
     private String name;
     private String password;
     private String sessionId;
-
-    public AbstractUser() {
-        this.role = UserRole.NO_ROLE;
-    }
 
     public UserRole getRole() {
         return role;

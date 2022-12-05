@@ -1,5 +1,8 @@
 package ro.uaic.info.documents.submission.documentssubmisson.filters;
 
+import ro.uaic.info.documents.submission.documentssubmisson.models.User;
+import ro.uaic.info.documents.submission.documentssubmisson.models.UserRole;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +23,16 @@ public class AuthorizationFilter implements Filter {
             HttpServletRequest servletRequest = (HttpServletRequest) request;
             HttpServletResponse servletResponse = (HttpServletResponse) response;
             HttpSession ses = servletRequest.getSession(false);
-
             String reqURI = servletRequest.getRequestURI();
-            if (reqURI.contains("/login.xhtml")
-                    || (ses != null && ses.getAttribute("username") != null)
+
+            User user = null;
+            if (ses != null) {
+                user = (User) ses.getAttribute("user");
+            }
+
+            if (reqURI.contains("/login.xhtml") || reqURI.contains("/register.xhtml")
+                    || user != null && user.getRole() == UserRole.ADMIN && reqURI.contains("/admin.xhtml")
+                    || user != null && reqURI.contains("/document.xhtml")
                     || reqURI.contains("/public/")
                     || reqURI.contains("javax.faces.resource"))
                 chain.doFilter(request, response);

@@ -3,9 +3,19 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/templates/page.xhtml">
+    <ui:param name="pageTitle" value="Documents"/>
+    <ui:define name="author">
+        <h:panelGrid rendered="#{documentView.user.role.name() == 'AUTHOR'}">
+            <ui:include src="/decorators/author.xhtml"/>
+        </h:panelGrid>
+    </ui:define>
+    <ui:define name="reviewer">
+        <h:panelGrid rendered="#{documentView.user.role.name() == 'REVIEWER'}">
+            <ui:include src="/decorators/reviewer.xhtml"/>
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>
 </html>

@@ -8,7 +8,7 @@
 <h:head>
 </h:head>
 <h:body>
-   <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+   <p:growl id="growl" sticky="true" showDetail="true" />
    <h:form id="registerForm">
       <h:panelGrid columns="2" cellpadding="5">
          <h:outputLabel for="username" value="Username:" />
@@ -17,14 +17,16 @@
          <h:outputLabel for="password" value="Password:" />
          <p:password id="password" value="#{userRegisterView.user.password}" required="true" label="password" />
 
-         <p:selectOneRadio id="role" value="#{userRegisterView.user.role}" layout="grid" columns="1" styleClass="grid-radio">
+         <h:outputLabel for="role" value="Select your role:" />
+         <p:selectOneRadio id="role" value="#{userRegisterView.role}" layout="grid" columns="3" styleClass="grid-radio">
             <f:selectItem itemLabel="Admin" itemValue="ADMIN"/>
             <f:selectItem itemLabel="Author" itemValue="AUTHOR"/>
             <f:selectItem itemLabel="Reviewer" itemValue="REVIEWER"/>
+            <p:ajax listener="#{userRegisterView.setUserRole}"/>
          </p:selectOneRadio>
 
          <f:facet name="footer">
-            <p:commandButton value="Register" update="growl, registerForm" action="#{userLoginView.login}" ajax='false' />
+            <p:commandButton value="Register" update="growl, registerForm" action="#{userRegisterView.register}" ajax='false' />
          </f:facet>
       </h:panelGrid>
    </h:form>
