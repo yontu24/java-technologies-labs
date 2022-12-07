@@ -2,11 +2,14 @@ package ro.uaic.info.documents.submission.documentssubmisson.controllers;
 
 import ro.uaic.info.documents.submission.documentssubmisson.models.User;
 import ro.uaic.info.documents.submission.documentssubmisson.models.UserRole;
+import ro.uaic.info.documents.submission.documentssubmisson.services.TimeFrameService;
 
 import javax.annotation.Resource;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.sql.DataSource;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,26 +22,15 @@ public class RegisterController implements Serializable {
     @Resource(mappedName = "jdbc/__Documents")
     private DataSource dataSource;
 
+    @Inject
+    private TimeFrameService timeFrameService;
+
+    @Transactional
     public boolean registerUser(User user) {
-        try (Connection connection = dataSource.getConnection()) {
-            String query = "insert into users (name, password, role) values (?, ?, ?)";
-
-            try (PreparedStatement stmt = connection.prepareStatement(query)) {
-                stmt.setString(1, user.getName());
-                stmt.setString(2, user.getPassword());
-                stmt.setInt(3, user.getRole().ordinal());
-                stmt.execute();
-
-                System.out.println("Successfully insert into users " + user.getName() + ", " + user.getPassword());
-                return true;
-            }
-        } catch (SQLException exception) {
-            System.out.println("Query has not been executed.");
-            exception.printStackTrace();
-            return false;
-        }
+        return timeFrameService.get() && insertUser(user);
     }
 
+    @Transactional
     public boolean isUserRegistered(User user) {
         if (user == null)
             return false;
@@ -57,6 +49,26 @@ public class RegisterController implements Serializable {
             }
 
             return false;
+        } catch (SQLException exception) {
+            System.out.println("Query has not been executed.");
+            exception.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean insertUser(User user) {
+        try (Connection connection = dataSource.getConnection()) {
+            String query = "insert into users (name, password, role) values (?, ?, ?)";
+
+            try (PreparedStatement stmt = connection.prepareStatement(query)) {
+                stmt.setString(1, user.getName());
+                stmt.setString(2, user.getPassword());
+                stmt.setInt(3, user.getRole().ordinal());
+                stmt.execute();
+
+                System.out.println("Successfully insert into users " + user.getName() + ", " + user.getPassword());
+                return true;
+            }
         } catch (SQLException exception) {
             System.out.println("Query has not been executed.");
             exception.printStackTrace();

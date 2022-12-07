@@ -1,7 +1,7 @@
 package ro.uaic.info.documents.submission.documentssubmisson.controllers;
 
 import ro.uaic.info.documents.submission.documentssubmisson.models.Document;
-import ro.uaic.info.documents.submission.documentssubmisson.views.DocumentView;
+import ro.uaic.info.documents.submission.documentssubmisson.services.impl.upload.UploadServiceImpl;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.io.BufferedReader;
@@ -15,7 +15,7 @@ public class AdminController {
     public List<Document> getAllUploadedDocuments() {
         List<Document> documentList = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(DocumentView.SUBMISSION_FILE_PATH))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(UploadServiceImpl.SUBMISSION_FILE_PATH))) {
             String line = reader.readLine();
             while (line != null) {
                 String[] tokens = line.split("\\|");

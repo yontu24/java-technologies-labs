@@ -39,4 +39,14 @@ public class Document implements Serializable {
     public void setPath(String path) {
         this.path = path;
     }
+
+    @Override
+    public String toString() {
+        return "Document{" +
+                "id='" + id + '\'' +
+                ", author='" + author + '\'' +
+                ", date='" + date + '\'' +
+                ", path='" + path + '\'' +
+                '}';
+    }
 }

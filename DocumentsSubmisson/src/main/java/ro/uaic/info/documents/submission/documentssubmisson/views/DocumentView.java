@@ -1,24 +1,21 @@
 package ro.uaic.info.documents.submission.documentssubmisson.views;
 
 import org.primefaces.model.file.UploadedFile;
-import org.primefaces.model.file.UploadedFilesWrapper;
-import org.primefaces.shaded.commons.io.FilenameUtils;
+import ro.uaic.info.documents.submission.documentssubmisson.annotations.Uploading;
+import ro.uaic.info.documents.submission.documentssubmisson.controllers.UploadController;
 import ro.uaic.info.documents.submission.documentssubmisson.models.User;
+import ro.uaic.info.documents.submission.documentssubmisson.util.events.upload.UploadingEvent;
 import ro.uaic.info.documents.submission.documentssubmisson.util.session.SessionUtils;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Event;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.io.IOException;
+import java.io.Serializable;
 
 @Named
 @SessionScoped
@@ -26,8 +23,12 @@ public class DocumentView implements Serializable {
     private User user;
     private UploadedFile uploadedFile;
 
-    public static final String UPLOAD_DIRECTORY_PATH = "D:\\Projects\\upload";
-    public static final String SUBMISSION_FILE_PATH = "D:\\Projects\\upload\\submission.txt";
+    @Inject
+    private UploadController uploadController;
+
+    @Inject
+    @Uploading
+    private Event<UploadingEvent> uploadingEvent;
 
     @PostConstruct
     public void init() {
@@ -51,42 +52,25 @@ public class DocumentView implements Serializable {
     }
 
     public void upload() throws IOException {
+        boolean success;
+        FacesMessage message;
+
         if (uploadedFile != null) {
-            FacesMessage message = new FacesMessage("Successful", uploadedFile.getFileName() + " is uploaded.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            success = uploadController.upload(uploadedFile);
 
-            saveContentOnDisk();
-        }
-    }
+            UploadingEvent uploadingEvent = new UploadingEvent();
+            uploadingEvent.setSuccess(success);
+            uploadingEvent.setUploadedFile(uploadedFile);
 
-    private void saveSubmissionByFile(File file) {
-        try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(SUBMISSION_FILE_PATH, true)))) {
-            String[] tokens = file.getName().split("-");
-            String uniqueId = tokens[tokens.length - 1].split("\\.")[0];
+            this.uploadingEvent.fire(uploadingEvent);
 
-            LocalDate localDate = LocalDate.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            String formattedDate = localDate.format(formatter);
+            if (success)
+                message = new FacesMessage("Successful", uploadedFile.getFileName() + " is uploaded.");
+            else
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Failed", "Submission are allowed only between 10AM and 16PM.");
+        } else
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "File is missing. Submit a valid file.");
 
-            out.write(file + "|" + uniqueId + "|" + user.getName() + "|" + formattedDate + "\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Submission `" + "" + "` has been saved.");
-    }
-
-    private void saveContentOnDisk() throws IOException {
-        Path folder = Paths.get(UPLOAD_DIRECTORY_PATH);
-        String filename = FilenameUtils.getBaseName(uploadedFile.getFileName());
-        String extension = FilenameUtils.getExtension(uploadedFile.getFileName());
-        Path file = Files.createTempFile(folder, filename + "-", "." + extension);
-
-        try (InputStream input = uploadedFile.getInputStream()) {
-            Files.copy(input, file, StandardCopyOption.REPLACE_EXISTING);
-        }
-
-        System.out.println("Uploaded file successfully saved in " + file.getFileName());
-
-        saveSubmissionByFile(file.toFile());
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 }

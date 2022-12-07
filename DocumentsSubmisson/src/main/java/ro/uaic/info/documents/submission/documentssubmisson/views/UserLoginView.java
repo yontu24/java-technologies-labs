@@ -2,6 +2,7 @@ package ro.uaic.info.documents.submission.documentssubmisson.views;
 
 import ro.uaic.info.documents.submission.documentssubmisson.controllers.NavigationController;
 import ro.uaic.info.documents.submission.documentssubmisson.controllers.RegisterController;
+import ro.uaic.info.documents.submission.documentssubmisson.annotations.Logged;
 import ro.uaic.info.documents.submission.documentssubmisson.models.User;
 import ro.uaic.info.documents.submission.documentssubmisson.util.session.SessionUtils;
 
@@ -39,6 +40,7 @@ public class UserLoginView implements Serializable {
         user = new User();
     }
 
+    @Logged
     public void login() throws IOException {
         String username = user.getName();
         String password = user.getPassword();
@@ -69,6 +71,7 @@ public class UserLoginView implements Serializable {
         }
     }
 
+    @Logged
     public void logout() {
         HttpSession session = SessionUtils.getSession();
         session.invalidate();

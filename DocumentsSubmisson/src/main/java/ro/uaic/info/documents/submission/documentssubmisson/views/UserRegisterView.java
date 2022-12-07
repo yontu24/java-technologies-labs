@@ -25,6 +25,7 @@ public class UserRegisterView implements Serializable {
     public void init() {
         user = new User();
         role = UserRole.AUTHOR.name();
+        user.setRole(UserRole.valueOf(role));
     }
 
     public String getRole() {
@@ -46,16 +47,21 @@ public class UserRegisterView implements Serializable {
     public void register() {
         String username = user.getName();
         String password = user.getPassword();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
         boolean existsUser = registerController.isUserRegistered(user);
 
         if (username != null && password != null) {
             if (!existsUser) {
-                registerController.registerUser(user);
+                boolean canRegister = registerController.registerUser(user);
 
-                FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Registered successfully.",
-                                "You have been registered successfully."));
+                if (canRegister) {
+                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    "Registered successfully.",
+                                    "You have been registered successfully."));
+                } else {
+                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                            "Registered failed", "Registrations are allowed only between 10AM and 20PM."));
+                }
             } else {
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
