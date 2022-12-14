@@ -10,6 +10,15 @@ The application will allow the following:
   - Register new users and assign them a specific role, for example admin, author, reviewer, etc.
   - Specify a time frame, in which registration is open for users and submissions.
   - The possibility to upload a document (for authors) and to view all uploaded documents (for admin). Each uploaded document will have a uniquely generated registration number. All submissions will be logged in a text file.
+
+- `Lab8`
+  - 
+    Create RESTful Web services using JAX-RS that allow the interaction with at least one JPA entity, implementing CRUD operations. For example, the application may offer a resource containing the following services:
+    * adding a new document to the database;
+    * replacing an existing document;
+    * deleting an existing document.
+    * returning a "list" of the documents that were uploaded. The parameter of the web method will be an identifier for the user. If the parameter is null, then all documents should be considered.
+
 # Homework
 - `Lab7`
   - 

@@ -5,8 +5,13 @@ import org.primefaces.shaded.commons.io.FilenameUtils;
 import ro.uaic.info.documents.submission.documentssubmisson.services.UploadService;
 import ro.uaic.info.documents.submission.documentssubmisson.util.session.SessionUtils;
 
-import javax.enterprise.inject.Any;
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,7 +19,6 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-@Any
 public class UploadServiceImpl implements UploadService, Serializable {
     public static final String UPLOAD_DIRECTORY_PATH = "D:\\Projects\\upload";
     public static final String SUBMISSION_FILE_PATH = "D:\\Projects\\upload\\submission.txt";
