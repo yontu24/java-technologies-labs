@@ -8,6 +8,7 @@ import ro.uaic.info.documents.submission.documentssubmisson.util.events.upload.U
 import ro.uaic.info.documents.submission.documentssubmisson.util.session.SessionUtils;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
 import javax.faces.application.FacesMessage;
@@ -19,6 +20,7 @@ import java.io.Serializable;
 
 @Named
 @SessionScoped
+@RolesAllowed({"author", "reviewer"})
 public class DocumentView implements Serializable {
     private User user;
     private UploadedFile uploadedFile;

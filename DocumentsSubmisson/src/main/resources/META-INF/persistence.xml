@@ -6,6 +6,7 @@
     <persistence-unit name="default" transaction-type="JTA">
         <jta-data-source>jdbc/__Documents</jta-data-source>
         <class>ro.uaic.info.documents.submission.documentssubmisson.entities.DocumentEntity</class>
+        <class>ro.uaic.info.documents.submission.documentssubmisson.entities.UsersEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/documents"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>

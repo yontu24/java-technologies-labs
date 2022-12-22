@@ -4,6 +4,8 @@ import ro.uaic.info.documents.submission.documentssubmisson.entities.DocumentEnt
 import ro.uaic.info.documents.submission.documentssubmisson.models.Document;
 import ro.uaic.info.documents.submission.documentssubmisson.services.SubmissionService;
 
+import javax.annotation.security.DenyAll;
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -29,6 +31,7 @@ public class SubmissionResource {
     @GET
     @Path("/document/{documentId}")
     @Produces(MediaType.TEXT_PLAIN)
+    @DenyAll
     public Response showDocument(@PathParam(("documentId")) String documentId) {
         DocumentEntity documentEntity = submissionService.getDocument(documentId);
         return Response.status(Response.Status.OK).entity("Found " + documentEntity).build();
@@ -38,6 +41,7 @@ public class SubmissionResource {
     @Path("document")
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
+    @RolesAllowed("user")
     public Response addDocument(Document document) {
         submissionService.addDocument(document);
         return Response.status(Response.Status.CREATED).entity("Document " + document + " has been added.").build();
@@ -47,6 +51,7 @@ public class SubmissionResource {
     @Path("document")
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
+    @RolesAllowed("user")
     public Response updateDocument(Document document) {
         submissionService.replaceDocument(document);
         return Response.status(Response.Status.OK).entity("Document " + document + " has been modified.").build();
@@ -56,6 +61,7 @@ public class SubmissionResource {
     @Path("document/{documentId}")
     @Produces(MediaType.TEXT_PLAIN)
 //    @Transactional
+    @RolesAllowed("admin")
     public Response deleteDocument(@PathParam("documentId") String documentId) {
         submissionService.deleteDocument(documentId);
         return Response.status(Response.Status.OK).entity("Document " + documentId + " has been deleted.").build();
@@ -64,6 +70,7 @@ public class SubmissionResource {
     @GET
     @Path("documents/{author}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
     public Response getAllDocuments(@PathParam("author") String author) {
         List<DocumentEntity> documentList = submissionService.getDocumentsUploadedByUser(author);
         return Response.status(Response.Status.OK).entity(documentList).build();

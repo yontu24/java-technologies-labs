@@ -60,7 +60,7 @@ public class UserLoginView implements Serializable {
                             "Registered successfully.",
                             "You have been registered successfully."));
 
-            if (username.equals("admin") && password.equals("admin"))
+            if (username.equals("admin") && password.equals("8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"))
                 context.getExternalContext().redirect(navigationController.adminPage() + ".xhtml");
             else
                 context.getExternalContext().redirect(navigationController.documentPage() + ".xhtml");

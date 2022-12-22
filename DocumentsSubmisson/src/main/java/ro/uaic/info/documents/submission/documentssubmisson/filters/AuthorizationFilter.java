@@ -3,13 +3,16 @@ package ro.uaic.info.documents.submission.documentssubmisson.filters;
 import ro.uaic.info.documents.submission.documentssubmisson.models.User;
 import ro.uaic.info.documents.submission.documentssubmisson.models.UserRole;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(filterName = "AuthorizationFilter", urlPatterns = { "*.xhtml" })
+//@WebFilter(filterName = "AuthorizationFilter", urlPatterns = { "*.xhtml" })
 public class AuthorizationFilter implements Filter {
     public void init(FilterConfig config) {
     }
